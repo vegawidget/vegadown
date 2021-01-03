@@ -33,7 +33,25 @@ engine <- function(language) {
     # reset language for markdown highlighting
     options$engine <- language
 
+    # combine vega-embed options, favoring local
+    opts_embed <- getOption("vega.embed")
+    local_embed <- options$vega.embed
+
+    opts_embed[names(local_embed)] <- local_embed
+
+    # set options for rendering
+    withr::local_options(
+      c(options[c("vega.width", "vega.height")], list(vega.embed = opts_embed))
+    )
+
+    if (identical(.Platform$GUI, "RStudio")) {
+      return(vegawidget(spec))
+    }
+
     knitr::engine_output(options, code, knit_print.vegaspec(spec))
   }
 
 }
+
+# from knitr
+

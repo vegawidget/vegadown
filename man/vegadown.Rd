@@ -2,16 +2,36 @@
 % Please edit documentation in R/vegadown.R
 \name{vegadown}
 \alias{vegadown}
+\alias{vegadown_labels}
 \title{Access vegaspecs}
 \usage{
-vegadown(name)
+vegadown(label)
+
+vegadown_labels()
 }
 \arguments{
-\item{name}{\code{character} name of the code chunk to access}
+\item{label}{\code{character} label of the code chunk to access}
 }
 \value{
-\code{list()} with S3 class \code{vegaspec}.
+\describe{
+\item{\code{vegadown()}}{\code{list()} with S3 class \code{vegaspec}.}
+\item{\code{vegadown_labels()}}{\code{character} vector, all available labels.}
+}
 }
 \description{
-Access vegaspecs
+Any vegaspecs rendered in knitr chunks using \code{vegajson}, \code{vegayaml},
+or \code{vegayml} will be stored to a package environment, where they can
+be accessed using the \code{vegadown()} function, using the label of a
+code chunk.
+
+To get all the available labels, use \code{vegadown_labels()}.
+}
+\examples{
+vegadown_labels()
+
+# not run because it depends on side effects
+\dontrun{
+  vegadown("json-cars")
+}
+
 }

@@ -42,9 +42,31 @@ as_vegaspec(
 Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMarkdown. There are two things keep in mind, initially:
 
 - use `vegajson` or `vegayaml` (or `vegayml`) as the language of your code chunk.
-- the resulting vegaspec will be stored in a list called `vegadown`. 
-  For example, if you label a code chunk as `json-cars`, the vegaspec will be available using `vegadown("json-cars")`.
+- afterwards, you can access a given vegaspec using `vegadown()`.
 
+If you label a code chunk as `json-cars`, the vegaspec will be available using `vegadown("json-cars")`.
+You can get the names of available specs using `vegadown_names()`.
+
+### Examples
+
+Here's what your code chunk would look like:
+
+````markdown
+`r ''````{vegajson json-cars}
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
+  "data": {"url": "data/cars.json"},
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Horsepower", "type": "quantitative"},
+    "y": {"field": "Miles_per_Gallon", "type": "quantitative"}
+  }
+}
+```
+````
+
+Here's how it would appear:
 
 ```{vegajson json-cars}
 {
@@ -59,28 +81,34 @@ Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMar
 }
 ```
 
-```{r}
-str(vegadown("json-cars"))
-```
+As noted above, you can also use YAML (`vegayaml` or `vegayml`). 
+Note below that we quote the `"y"` for the y-encoding; this is because of the [(many) reserved Boolean keywords](https://yaml.org/type/bool.html) in YAML.
 
 ```{vegayaml yaml-cars}
 $schema: "https://vega.github.io/schema/vega-lite/v4.json"
-description: "A scatterplot showing horsepower and miles per gallons for various cars."
+description: "A scatterplot showing weight and miles per gallons for various cars."
 data: 
   url: "data/cars.json"
 mark: point
 encoding: 
   x: 
-    field: Horsepower
+    field: Weight_in_lbs
     type: quantitative
   "y": 
     field: Miles_per_Gallon
     type: quantitative
 ```
 
+To get the available labels:
 
 ```{r}
-str(vegadown("yaml-cars"))
+vegadown_labels()
+```
+
+You can access a particular spec using `vegadown()`:
+
+```{r}
+str(vegadown("json-cars"))
 ```
 
 ## Interpolation from R
