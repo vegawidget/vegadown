@@ -1,0 +1,78 @@
+---
+title: "vegadown"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vegadown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("vegadown")
+```
+
+Using only [vegawidget](https://vegawidget.github.io/vegawidget), you have to compose a Vega or Vega-Lite spec (vegaspec) using lists:
+
+```{r vwcars, dev='svg'}
+vegawidget::vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
+
+as_vegaspec(
+  list(
+    `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
+    description = "A scatterplot showing horsepower and miles per gallons for various cars.",
+    `data` = list("url" = "data/cars.json"),
+    mark = "point",
+    encoding = list(
+      x = list(field = "Horsepower", type = "quantitative"),
+      y = list(field = "Miles_per_Gallon", type = "quantitative")
+    )  
+  ) 
+)
+```
+
+## First steps
+
+Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMarkdown. There are two things keep in mind, initially:
+
+- use `json` or `yaml` (or `yml`) as the language of your code chunk.
+- the resulting vegaspec will be stored in a list called `vegadown`. 
+  For example, if you label a code chunk as `json_cars`, the vegaspec will be available as `vegadown$json_cars`.
+
+```{json json_cars}
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
+  "data": {"url": "data/cars.json"},
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Horsepower", "type": "quantitative"},
+    "y": {"field": "Miles_per_Gallon", "type": "quantitative"}
+  }
+}
+```
+
+```{yaml yaml_cars}
+$schema: "https://vega.github.io/schema/vega-lite/v4.json"
+description: "A scatterplot showing horsepower and miles per gallons for various cars."
+data: 
+  url: "data/cars.json"
+mark: point
+encoding: 
+  x: 
+    field: Horsepower
+    type: quantitative
+  y: 
+    field: Miles_per_Gallon
+    type: quantitative
+```
+
+## Interpolation from R
+
+## Behind the scenes
