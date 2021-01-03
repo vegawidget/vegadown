@@ -20,3 +20,5 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     vegawidget
+URL: https://github.com/vegawidget/vegadown
+BugReports: https://github.com/vegawidget/vegadown/issues
