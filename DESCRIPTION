@@ -1,6 +1,6 @@
 Package: vegadown
 Title: 'knitr' Engine to Render 'YAML' and 'JSON' into 'Vega'
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Ian J",
            family = "Lyttle",

@@ -9,17 +9,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  dev = "svg"
 )
 ```
 
 # vegadown
-
-<!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/vegadown)](https://CRAN.R-project.org/package=vegadown)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![R-CMD-check](https://github.com/vegawidget/vegadown/workflows/R-CMD-check/badge.svg)](https://github.com/vegawidget/vegadown/actions)
-<!-- badges: end -->
 
 The goal of vegadown is to help you compose Vega and Vega-Lite specs in RMardown documents.
 
@@ -37,7 +31,47 @@ devtools::install_github("vegawidget/vegadown")
 
 ```{r setup}
 library("vegadown")
+
+# makes it easier to set data URL in specs
+vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
 ```
+
+When coding, it can be a bit awkward to compose vegaspecs using lists. 
+Using this packaage, you can compose using JSON or YAML in RMarkdown by specifying a chunk's language as `vegajson`, `vegayaml` or `vegayml`.
+
+Here's what your code chunk would look like:
+
+````
+```{vegajson json-cars}`r ''`
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
+  "data": {"url": "data/cars.json"},
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Horsepower", "type": "quantitative"},
+    "y": {"field": "Miles_per_Gallon", "type": "quantitative"}
+  }
+}
+```
+````
+
+Here's how it would appear:
+
+```{vegajson json-cars}
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
+  "data": {"url": "data/cars.json"},
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Horsepower", "type": "quantitative"},
+    "y": {"field": "Miles_per_Gallon", "type": "quantitative"}
+  }
+}
+```
+
+For more detail, please see the [getting started article](https://vegawidget.github.io/vegadown/articles/vegadown.html).
 
 ## Code of Conduct
 

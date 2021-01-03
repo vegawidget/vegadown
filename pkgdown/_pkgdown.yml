@@ -1,0 +1,30 @@
+template:
+  params:
+    bootswatch: sandstone
+
+development:
+  mode: auto
+
+reference:
+  - title: "Code chunks"
+    desc: >
+      Use these functions to access vegaspecs you create in RMarkdown using the
+      languages `vegajson`, `vegayaml`, or `vegayml`.
+    contents:
+      - vegadown
+
+  - title: "vegawidget"
+    desc: >
+      These functions are re-exported from
+      [vegawidget](https://vegawidget.github.io/).
+    contents:
+      - as_vegaspec
+      - vegawidget
+      - vega_embed
+      - vw_set_base_url
+      - knit_print.vegaspec
+      - vw_as_json
+      - image
+      - vegawidgetOutput
+      - renderVegawidget
+

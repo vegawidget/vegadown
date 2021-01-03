@@ -16,10 +16,9 @@ engine <- function(language) {
 
   function(options) {
 
-    # to get htmlwidget to work, we seem to have to set this manually
-    options[["results"]] <- "asis"
+    # options[["results"]] <- "asis"
 
-    # get YAML together
+    # get code together
     code <- paste(options$code, collapse = '\n')
 
     # make vegaspec
@@ -33,22 +32,27 @@ engine <- function(language) {
     # reset language for markdown highlighting
     options$engine <- language
 
-    # combine vega-embed options, favoring local
-    opts_embed <- getOption("vega.embed")
-    local_embed <- options$vega.embed
-
-    opts_embed[names(local_embed)] <- local_embed
-
-    # set options for rendering
-    withr::local_options(
-      c(options[c("vega.width", "vega.height")], list(vega.embed = opts_embed))
-    )
-
+    # if RStudio GUI
     if (identical(.Platform$GUI, "RStudio")) {
-      return(vegawidget(spec))
+
+      widget <- vegawidget(
+        spec,
+        embed = options$vega.embed,
+        width = options$vega.width,
+        height = options$vega.height
+      )
+
+      return(widget)
     }
 
-    knitr::engine_output(options, code, knit_print.vegaspec(spec))
+    widget_output <- knit_print.vegaspec(spec, options = options)
+    knitr::engine_output(
+      options,
+      out = list(
+        structure(list(src = options$code), class = 'source'),
+        widget_output
+      )
+    )
   }
 
 }
