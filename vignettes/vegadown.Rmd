@@ -20,14 +20,14 @@ library("vegadown")
 
 Using only [vegawidget](https://vegawidget.github.io/vegawidget), you have to compose a Vega or Vega-Lite spec (vegaspec) using lists:
 
-```{r vwcars, dev='svg'}
+```{r vwcars}
 vegawidget::vw_set_base_url("https://cdn.jsdelivr.net/npm/vega-datasets@2")
 
 as_vegaspec(
   list(
     `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
     description = "A scatterplot showing horsepower and miles per gallons for various cars.",
-    `data` = list("url" = "data/cars.json"),
+    data = list("url" = "data/cars.json"),
     mark = "point",
     encoding = list(
       x = list(field = "Horsepower", type = "quantitative"),
