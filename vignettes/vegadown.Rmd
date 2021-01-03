@@ -51,8 +51,8 @@ You can get the names of available specs using `vegadown_names()`.
 
 Here's what your code chunk would look like:
 
-````markdown
-`r ''````{vegajson json-cars}
+````
+```{vegajson json-cars}`r ''`
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
