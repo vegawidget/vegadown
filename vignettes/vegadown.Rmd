@@ -45,6 +45,7 @@ Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMar
 - the resulting vegaspec will be stored in a list called `vegadown`. 
   For example, if you label a code chunk as `json_cars`, the vegaspec will be available as `vegadown$json_cars`.
 
+
 ```{json json_cars}
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
@@ -58,6 +59,10 @@ Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMar
 }
 ```
 
+```{r}
+str(vegadown:::vegadown("json_cars"))
+```
+
 ```{yaml yaml_cars}
 $schema: "https://vega.github.io/schema/vega-lite/v4.json"
 description: "A scatterplot showing horsepower and miles per gallons for various cars."
@@ -68,9 +73,14 @@ encoding:
   x: 
     field: Horsepower
     type: quantitative
-  y: 
+  "y": 
     field: Miles_per_Gallon
     type: quantitative
+```
+
+
+```{r}
+str(vegadown:::vegadown("yaml_cars"))
 ```
 
 ## Interpolation from R

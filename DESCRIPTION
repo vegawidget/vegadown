@@ -15,11 +15,12 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
-    knitr,
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
-    vegawidget
+    vegawidget,
+    knitr,
+    yaml
 Remotes:
     vegawidget/vegawidget
 URL: https://github.com/vegawidget/vegadown
