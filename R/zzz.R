@@ -3,8 +3,8 @@
 .onAttach <- function(...) {
 
   knitr::knit_engines$set(
-    json = engine_json,
-    yaml = engine_yaml,
-    yml = engine_yaml
+    vegajson = engine("json"),
+    vegayaml = engine("yaml"),
+    vegayml  = engine("yaml")
   )
 }

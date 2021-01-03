@@ -41,12 +41,12 @@ as_vegaspec(
 
 Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMarkdown. There are two things keep in mind, initially:
 
-- use `json` or `yaml` (or `yml`) as the language of your code chunk.
+- use `vegajson` or `vegayaml` (or `vegayml`) as the language of your code chunk.
 - the resulting vegaspec will be stored in a list called `vegadown`. 
-  For example, if you label a code chunk as `json_cars`, the vegaspec will be available as `vegadown$json_cars`.
+  For example, if you label a code chunk as `json-cars`, the vegaspec will be available using `vegadown("json-cars")`.
 
 
-```{json json_cars}
+```{vegajson json-cars}
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
@@ -60,10 +60,10 @@ Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMar
 ```
 
 ```{r}
-str(vegadown:::vegadown("json_cars"))
+str(vegadown("json-cars"))
 ```
 
-```{yaml yaml_cars}
+```{vegayaml yaml-cars}
 $schema: "https://vega.github.io/schema/vega-lite/v4.json"
 description: "A scatterplot showing horsepower and miles per gallons for various cars."
 data: 
@@ -80,7 +80,7 @@ encoding:
 
 
 ```{r}
-str(vegadown:::vegadown("yaml_cars"))
+str(vegadown("yaml-cars"))
 ```
 
 ## Interpolation from R
