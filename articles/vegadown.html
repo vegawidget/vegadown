@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vegadown</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -93,8 +93,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/as_vegaspec.html">as_vegaspec</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    `$schema` <span class="op">=</span> <span class="st">"https://vega.github.io/schema/vega-lite/v4.json"</span>,
-    description <span class="op">=</span> <span class="st">"A scatterplot showing horsepower and miles per gallons for various cars."</span>,
+    `$schema` <span class="op">=</span> <span class="fu"><a href="../reference/vega_schema.html">vega_schema</a></span><span class="op">(</span><span class="op">)</span>,
     data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"url"</span> <span class="op">=</span> <span class="st">"data/cars.json"</span><span class="op">)</span>,
     mark <span class="op">=</span> <span class="st">"point"</span>,
     encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -103,11 +102,10 @@
     <span class="op">)</span>  
   <span class="op">)</span> 
 <span class="op">)</span></code></pre></div>
-<div id="htmlwidget-8c9d49d8dc69790a1a2c" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8c9d49d8dc69790a1a2c">{"x":{
+<div id="htmlwidget-f62cedcd072e3968a1e6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f62cedcd072e3968a1e6">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
     "data": {
       "url": "data/cars.json"
     },
@@ -128,14 +126,14 @@
       "baseURL": "https://cdn.jsdelivr.net/npm/vega-datasets@2"
     }
   }
-},"evals":[],"jsHooks":[]}</script><p>When coding, it can be a bit awkward to compose vegaspecs using lists. Using this packaage, you can compose using JSON or YAML in RMarkdown by specifying a chunk’s language as <code>vegajson</code>, <code>vegayaml</code> or <code>vegayml</code>.</p>
+},"evals":[],"jsHooks":[]}</script><p>It can feel a bit awkward to code using so many lists.</p>
 <div id="first-steps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#first-steps" class="anchor"></a>First steps</h2>
-<p>Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMarkdown. There are two things keep in mind, initially:</p>
+<p>Using vegadown, you can compose specs using JSON or YAML code chunks in RMarkdown:</p>
 <ul>
-<li>use <code>vegajson</code> or <code>vegayaml</code> (or <code>vegayml</code>) as the language of your code chunk.</li>
-<li>afterwards, you can access a given vegaspec using <code><a href="../reference/vegadown.html">vegadown()</a></code>.</li>
+<li>use <code>vegajson</code> or <code>vegayaml</code> (<code>vegayml</code>) as the language of your code chunk.</li>
+<li>afterwards, you can access the vegaspec of a given chunk using <code><a href="../reference/vegadown.html">vegadown()</a></code>.</li>
 </ul>
 <p>If you label a code chunk as <code>json-cars</code>, the vegaspec will be available using <code><a href="../reference/vegadown.html">vegadown("json-cars")</a></code>. You can get the names of available specs using <code>vegadown_names()</code>.</p>
 <div id="examples" class="section level3">
@@ -145,7 +143,6 @@
 <pre><code>```{vegajson json-cars}
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
   "data": {"url": "data/cars.json"},
   "mark": "point",
   "encoding": {
@@ -155,21 +152,10 @@
 }
 ```</code></pre>
 <p>Here’s how it would appear:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://vega.github.io/schema/vega-lite/v4.json"</span><span class="fu">,</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">"description"</span><span class="fu">:</span> <span class="st">"A scatterplot showing horsepower and miles per gallons for various cars."</span><span class="fu">,</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">"data"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"url"</span><span class="fu">:</span> <span class="st">"data/cars.json"</span><span class="fu">},</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">"mark"</span><span class="fu">:</span> <span class="st">"point"</span><span class="fu">,</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">"encoding"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">"x"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"field"</span><span class="fu">:</span> <span class="st">"Horsepower"</span><span class="fu">,</span> <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"quantitative"</span><span class="fu">},</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>    <span class="dt">"y"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"field"</span><span class="fu">:</span> <span class="st">"Miles_per_Gallon"</span><span class="fu">,</span> <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"quantitative"</span><span class="fu">}</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">}</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="fu">}</span></span></code></pre></div>
-<div id="htmlwidget-0c55846f7dc9e63fdd4b" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0c55846f7dc9e63fdd4b">{"x":{
+<div id="htmlwidget-f52214ac61201edc5ee6" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f52214ac61201edc5ee6">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
     "data": {
       "url": "data/cars.json"
     },
@@ -190,26 +176,25 @@
       "baseURL": "https://cdn.jsdelivr.net/npm/vega-datasets@2"
     }
   }
-},"evals":[],"jsHooks":[]}</script><p>As noted above, you can also use YAML (<code>vegayaml</code> or <code>vegayml</code>); we can also specify sizing options, just as with vegawidget.</p>
+},"evals":[],"jsHooks":[]}</script><p>As noted above, you can also use YAML (<code>vegayaml</code> or <code>vegayml</code>); we can also specify sizing options, just as with vegawidget. Here’s what the code-chunk front matter would look like:</p>
 <pre><code>```{vegayaml yaml-cars, vega.height=300, vega.width=300}
 ```</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">$schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://vega.github.io/schema/vega-lite/v4.json"</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A scatterplot showing weight and miles per gallons for various cars."</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">data</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="st">"data/cars.json"</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">mark</span><span class="kw">:</span><span class="at"> point</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">encoding</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="at">  </span><span class="fu">x</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> Weight_in_lbs</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="at">  </span><span class="fu">"y"</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> Miles_per_Gallon</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span></code></pre></div>
-<div id="htmlwidget-eb8c3f870309ca687494" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eb8c3f870309ca687494">{"x":{
+<p>Here’s how it would look in your rendered document:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">$schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://vega.github.io/schema/vega-lite/v4.json"</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">data</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="st">"data/cars.json"</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">mark</span><span class="kw">:</span><span class="at"> point</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">encoding</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">  </span><span class="fu">x</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> Weight_in_lbs</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">  </span><span class="fu">"y"</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> Miles_per_Gallon</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span></code></pre></div>
+<div id="htmlwidget-2583bfb82900e66e225d" style="width:300px;height:300px;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2583bfb82900e66e225d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "description": "A scatterplot showing weight and miles per gallons for various cars.",
     "data": {
       "url": "data/cars.json"
     },
@@ -242,37 +227,3599 @@
       "baseURL": "https://cdn.jsdelivr.net/npm/vega-datasets@2"
     }
   }
-},"evals":[],"jsHooks":[]}</script><p>Note that we quoted the <code>"y"</code> for the y-encoding; this is because of the <a href="https://yaml.org/type/bool.html">(many) reserved Boolean keywords</a> in YAML.</p>
-<p>To get the available labels:</p>
+},"evals":[],"jsHooks":[]}</script><p>Note that we quoted the <code>"y"</code> for the y-encoding; this is because of the (many) <a href="https://yaml.org/type/bool.html">reserved Boolean keywords</a> in YAML.</p>
+<p>You can access a particular spec using <code><a href="../reference/vegadown.html">vegadown()</a></code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/vegadown.html">vegadown</a></span><span class="op">(</span><span class="st">"json-cars"</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-85e2764bfb522cdd80a9" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-85e2764bfb522cdd80a9">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "url": "data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Horsepower",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "Miles_per_Gallon",
+        "type": "quantitative"
+      }
+    }
+  },
+  "embed_options": {
+    "loader": {
+      "baseURL": "https://cdn.jsdelivr.net/npm/vega-datasets@2"
+    }
+  }
+},"evals":[],"jsHooks":[]}</script><p>To get the labels of chunks that use vegadown (thus far in the RMarkdown document):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vegadown.html">vegadown_labels</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "json-cars" "yaml-cars"</span></code></pre></div>
-<p>You can access a particular spec using <code><a href="../reference/vegadown.html">vegadown()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/vegadown.html">vegadown</a></span><span class="op">(</span><span class="st">"json-cars"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; List of 5</span>
-<span class="co">#&gt;  $ $schema    : chr "https://vega.github.io/schema/vega-lite/v4.json"</span>
-<span class="co">#&gt;  $ description: chr "A scatterplot showing horsepower and miles per gallons for various cars."</span>
-<span class="co">#&gt;  $ data       :List of 1</span>
-<span class="co">#&gt;   ..$ url: chr "data/cars.json"</span>
-<span class="co">#&gt;  $ mark       : chr "point"</span>
-<span class="co">#&gt;  $ encoding   :List of 2</span>
-<span class="co">#&gt;   ..$ x:List of 2</span>
-<span class="co">#&gt;   .. ..$ field: chr "Horsepower"</span>
-<span class="co">#&gt;   .. ..$ type : chr "quantitative"</span>
-<span class="co">#&gt;   ..$ y:List of 2</span>
-<span class="co">#&gt;   .. ..$ field: chr "Miles_per_Gallon"</span>
-<span class="co">#&gt;   .. ..$ type : chr "quantitative"</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:4] "vegaspec_unit" "vegaspec_vega_lite" "vegaspec" "list"</span></code></pre></div>
 </div>
 </div>
 <div id="interpolation-from-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interpolation-from-r" class="anchor"></a>Interpolation from R</h2>
+<p>Writing a spec by hand is feasible if your data is available through a URL. However, it would be tedious to specify the data values manually. This is where interpolation is useful.</p>
+<p>Let’s introduce this topic using <a href="https://allisonhorst.github.io/palmerpenguins/index.html">palmerpenguins</a>, by Allison Horst, Alison Hill, and Kristen Gorman:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://allisonhorst.github.io/palmerpenguins/">"palmerpenguins"</a></span><span class="op">)</span>
+
+<span class="va">penguins</span>
+<span class="co">#&gt; # A tibble: 344 x 8</span>
+<span class="co">#&gt;    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g</span>
+<span class="co">#&gt;    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;</span>
+<span class="co">#&gt;  1 Adelie  Torge…           39.1          18.7              181        3750</span>
+<span class="co">#&gt;  2 Adelie  Torge…           39.5          17.4              186        3800</span>
+<span class="co">#&gt;  3 Adelie  Torge…           40.3          18                195        3250</span>
+<span class="co">#&gt;  4 Adelie  Torge…           NA            NA                 NA          NA</span>
+<span class="co">#&gt;  5 Adelie  Torge…           36.7          19.3              193        3450</span>
+<span class="co">#&gt;  6 Adelie  Torge…           39.3          20.6              190        3650</span>
+<span class="co">#&gt;  7 Adelie  Torge…           38.9          17.8              181        3625</span>
+<span class="co">#&gt;  8 Adelie  Torge…           39.2          19.6              195        4675</span>
+<span class="co">#&gt;  9 Adelie  Torge…           34.1          18.1              193        3475</span>
+<span class="co">#&gt; 10 Adelie  Torge…           42            20.2              190        4250</span>
+<span class="co">#&gt; # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</span></code></pre></div>
+<p>Let’s also choose an adjective for the title of our chart:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">adjective</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"wonderful"</span>, <span class="st">"amazing"</span>, <span class="st">"interesting"</span>, <span class="st">"penguiny"</span><span class="op">)</span>,
+  size <span class="op">=</span> <span class="fl">1</span>
+<span class="op">)</span></code></pre></div>
+<p>We use <a href="https://glue.tidyverse.org/">glue</a>-like notation to interpolate objects from the R environment into the spec; in fact, behind the scenes, we use <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code>. Instead of using <code>{}</code> as interpolation delimiters, we use the JavaScript interpolation delimiters, <code>${}</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">$schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"${vega_schema()}"</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">data</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="at">  </span><span class="fu">values</span><span class="kw">:</span><span class="at"> ${penguins}</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Such ${adjective} penguins!"</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">mark</span><span class="kw">:</span><span class="at"> point</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="fu">encoding</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="at">  </span><span class="fu">x</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> bill_length_mm</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="at">    </span><span class="fu">scale</span><span class="kw">:</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="at">      </span><span class="fu">zero</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="at">  </span><span class="fu">"y"</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> bill_depth_mm</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> quantitative</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="at">    </span><span class="fu">scale</span><span class="kw">:</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="at">      </span><span class="fu">zero</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="at">  </span><span class="fu">color</span><span class="kw">:</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="at">    </span><span class="fu">field</span><span class="kw">:</span><span class="at"> species</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> nominal</span></span></code></pre></div>
+<div id="htmlwidget-1a4fa564719b4d5069f3" style="width:auto;height:auto;" class="vegawidget html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a4fa564719b4d5069f3">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "values": [
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.1,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3750,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.5,
+          "bill_depth_mm": 17.4,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 40.3,
+          "bill_depth_mm": 18,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3250,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 36.7,
+          "bill_depth_mm": 19.3,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.3,
+          "bill_depth_mm": 20.6,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3650,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.9,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3625,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.2,
+          "bill_depth_mm": 19.6,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4675,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 34.1,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3475,
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 42,
+          "bill_depth_mm": 20.2,
+          "flipper_length_mm": 190,
+          "body_mass_g": 4250,
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 37.8,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3300,
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 37.8,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 180,
+          "body_mass_g": 3700,
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 17.6,
+          "flipper_length_mm": 182,
+          "body_mass_g": 3200,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.6,
+          "bill_depth_mm": 21.2,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 34.6,
+          "bill_depth_mm": 21.1,
+          "flipper_length_mm": 198,
+          "body_mass_g": 4400,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 36.6,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.7,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 42.5,
+          "bill_depth_mm": 20.7,
+          "flipper_length_mm": 197,
+          "body_mass_g": 4500,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 34.4,
+          "bill_depth_mm": 18.4,
+          "flipper_length_mm": 184,
+          "body_mass_g": 3325,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 46,
+          "bill_depth_mm": 21.5,
+          "flipper_length_mm": 194,
+          "body_mass_g": 4200,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.8,
+          "bill_depth_mm": 18.3,
+          "flipper_length_mm": 174,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.7,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 180,
+          "body_mass_g": 3600,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35.9,
+          "bill_depth_mm": 19.2,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.2,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.8,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 180,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35.3,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 40.6,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 183,
+          "body_mass_g": 3550,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 40.5,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3200,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.9,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 172,
+          "body_mass_g": 3150,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 40.5,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 180,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.5,
+          "bill_depth_mm": 16.7,
+          "flipper_length_mm": 178,
+          "body_mass_g": 3250,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.2,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 178,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.5,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 188,
+          "body_mass_g": 3300,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.9,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 184,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.4,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3325,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.2,
+          "bill_depth_mm": 21.1,
+          "flipper_length_mm": 196,
+          "body_mass_g": 4150,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 38.8,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 42.2,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 180,
+          "body_mass_g": 3550,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.6,
+          "bill_depth_mm": 19.3,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3300,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.8,
+          "bill_depth_mm": 19.1,
+          "flipper_length_mm": 184,
+          "body_mass_g": 4650,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.5,
+          "bill_depth_mm": 18,
+          "flipper_length_mm": 182,
+          "body_mass_g": 3150,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.8,
+          "bill_depth_mm": 18.4,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3100,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 44.1,
+          "bill_depth_mm": 19.7,
+          "flipper_length_mm": 196,
+          "body_mass_g": 4400,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37,
+          "bill_depth_mm": 16.9,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3000,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.6,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 190,
+          "body_mass_g": 4600,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 182,
+          "body_mass_g": 3425,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.5,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 179,
+          "body_mass_g": 2975,
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 42.3,
+          "bill_depth_mm": 21.2,
+          "flipper_length_mm": 191,
+          "body_mass_g": 4150,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 39.6,
+          "bill_depth_mm": 17.7,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3500,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 40.1,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 188,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 42,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 200,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 34.5,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 187,
+          "body_mass_g": 2900,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41.4,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3700,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 39,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3550,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 40.6,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 36.5,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 181,
+          "body_mass_g": 2850,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.6,
+          "bill_depth_mm": 19.1,
+          "flipper_length_mm": 194,
+          "body_mass_g": 3750,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35.7,
+          "bill_depth_mm": 16.9,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3150,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41.3,
+          "bill_depth_mm": 21.1,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4400,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.6,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3600,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 18.2,
+          "flipper_length_mm": 192,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 36.4,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 184,
+          "body_mass_g": 2850,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41.6,
+          "bill_depth_mm": 18,
+          "flipper_length_mm": 192,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35.5,
+          "bill_depth_mm": 16.2,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3350,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 19.1,
+          "flipper_length_mm": 188,
+          "body_mass_g": 4100,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 35.9,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3050,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 41.8,
+          "bill_depth_mm": 19.4,
+          "flipper_length_mm": 198,
+          "body_mass_g": 4450,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 33.5,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3600,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.7,
+          "bill_depth_mm": 18.4,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39.6,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 196,
+          "body_mass_g": 3550,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 45.8,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 197,
+          "body_mass_g": 4150,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 35.5,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 42.8,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4250,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 40.9,
+          "bill_depth_mm": 16.8,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 37.2,
+          "bill_depth_mm": 19.4,
+          "flipper_length_mm": 184,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 36.2,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3550,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 42.1,
+          "bill_depth_mm": 19.1,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4000,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 34.6,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3200,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 42.9,
+          "bill_depth_mm": 17.6,
+          "flipper_length_mm": 196,
+          "body_mass_g": 4700,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 36.7,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3800,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 35.1,
+          "bill_depth_mm": 19.4,
+          "flipper_length_mm": 193,
+          "body_mass_g": 4200,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.3,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3350,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 41.3,
+          "bill_depth_mm": 20.3,
+          "flipper_length_mm": 194,
+          "body_mass_g": 3550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.3,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.9,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3500,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 38.3,
+          "bill_depth_mm": 19.2,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 38.9,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3600,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 35.7,
+          "bill_depth_mm": 18,
+          "flipper_length_mm": 202,
+          "body_mass_g": 3550,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 205,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 34,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.6,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 186,
+          "body_mass_g": 4450,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.2,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3300,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.8,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 38.1,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.3,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 196,
+          "body_mass_g": 4350,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 33.1,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 178,
+          "body_mass_g": 2900,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 43.2,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 192,
+          "body_mass_g": 4100,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 35,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 192,
+          "body_mass_g": 3725,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 41,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 203,
+          "body_mass_g": 4725,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.7,
+          "bill_depth_mm": 16,
+          "flipper_length_mm": 183,
+          "body_mass_g": 3075,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.8,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 190,
+          "body_mass_g": 4250,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 37.9,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 193,
+          "body_mass_g": 2925,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 39.7,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 184,
+          "body_mass_g": 3550,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.6,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 199,
+          "body_mass_g": 3750,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.2,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.1,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3175,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 43.2,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 197,
+          "body_mass_g": 4775,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 38.1,
+          "bill_depth_mm": 16.5,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3825,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 45.6,
+          "bill_depth_mm": 20.3,
+          "flipper_length_mm": 191,
+          "body_mass_g": 4600,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 39.7,
+          "bill_depth_mm": 17.7,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3200,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 42.2,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 197,
+          "body_mass_g": 4275,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 39.6,
+          "bill_depth_mm": 20.7,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3900,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Biscoe",
+          "bill_length_mm": 42.7,
+          "bill_depth_mm": 18.3,
+          "flipper_length_mm": 196,
+          "body_mass_g": 4075,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.6,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 188,
+          "body_mass_g": 2900,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 37.3,
+          "bill_depth_mm": 20.5,
+          "flipper_length_mm": 199,
+          "body_mass_g": 3775,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 35.7,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3350,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3325,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 36.2,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3150,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 37.7,
+          "bill_depth_mm": 19.8,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 40.2,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 176,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 41.4,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 202,
+          "body_mass_g": 3875,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 35.2,
+          "bill_depth_mm": 15.9,
+          "flipper_length_mm": 186,
+          "body_mass_g": 3050,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 40.6,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 199,
+          "body_mass_g": 4000,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.8,
+          "bill_depth_mm": 17.6,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3275,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 41.5,
+          "bill_depth_mm": 18.3,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 39,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3050,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 44.1,
+          "bill_depth_mm": 18,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4000,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 38.5,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3325,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Torgersen",
+          "bill_length_mm": 43.1,
+          "bill_depth_mm": 19.2,
+          "flipper_length_mm": 197,
+          "body_mass_g": 3500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.8,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3500,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.5,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 199,
+          "body_mass_g": 4475,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 38.1,
+          "bill_depth_mm": 17.6,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3425,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 41.1,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 35.6,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3175,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.2,
+          "bill_depth_mm": 20.1,
+          "flipper_length_mm": 200,
+          "body_mass_g": 3975,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37,
+          "bill_depth_mm": 16.5,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.7,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 193,
+          "body_mass_g": 4250,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.2,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.6,
+          "bill_depth_mm": 17.2,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3475,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 32.1,
+          "bill_depth_mm": 15.5,
+          "flipper_length_mm": 188,
+          "body_mass_g": 3050,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 40.7,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3725,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.3,
+          "bill_depth_mm": 16.8,
+          "flipper_length_mm": 192,
+          "body_mass_g": 3000,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3650,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 39.2,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 190,
+          "body_mass_g": 4250,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36.6,
+          "bill_depth_mm": 18.4,
+          "flipper_length_mm": 184,
+          "body_mass_g": 3475,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 37.8,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3750,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 36,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Adelie",
+          "island": "Dream",
+          "bill_length_mm": 41.5,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 201,
+          "body_mass_g": 4000,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.1,
+          "bill_depth_mm": 13.2,
+          "flipper_length_mm": 211,
+          "body_mass_g": 4500,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50,
+          "bill_depth_mm": 16.3,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5700,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.7,
+          "bill_depth_mm": 14.1,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4450,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50,
+          "bill_depth_mm": 15.2,
+          "flipper_length_mm": 218,
+          "body_mass_g": 5700,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.6,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5400,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.5,
+          "bill_depth_mm": 13.5,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4550,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.4,
+          "bill_depth_mm": 14.6,
+          "flipper_length_mm": 211,
+          "body_mass_g": 4800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.7,
+          "bill_depth_mm": 15.3,
+          "flipper_length_mm": 219,
+          "body_mass_g": 5200,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.3,
+          "bill_depth_mm": 13.4,
+          "flipper_length_mm": 209,
+          "body_mass_g": 4400,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.8,
+          "bill_depth_mm": 15.4,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5150,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 40.9,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4650,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 216,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.5,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4650,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.4,
+          "bill_depth_mm": 14.6,
+          "flipper_length_mm": 213,
+          "body_mass_g": 5850,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.8,
+          "bill_depth_mm": 14.6,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4200,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.3,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 217,
+          "body_mass_g": 5850,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 42,
+          "bill_depth_mm": 13.5,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4150,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.2,
+          "bill_depth_mm": 15.2,
+          "flipper_length_mm": 221,
+          "body_mass_g": 6300,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.2,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 209,
+          "body_mass_g": 4800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.7,
+          "bill_depth_mm": 15.1,
+          "flipper_length_mm": 222,
+          "body_mass_g": 5350,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.2,
+          "bill_depth_mm": 14.3,
+          "flipper_length_mm": 218,
+          "body_mass_g": 5700,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.1,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5000,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.5,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 213,
+          "body_mass_g": 4400,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.3,
+          "bill_depth_mm": 15.8,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5050,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 42.9,
+          "bill_depth_mm": 13.1,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5000,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.1,
+          "bill_depth_mm": 15.1,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5100,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.5,
+          "bill_depth_mm": 14.3,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4100,
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.8,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5650,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.2,
+          "bill_depth_mm": 14.3,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4600,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50,
+          "bill_depth_mm": 15.3,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.3,
+          "bill_depth_mm": 15.3,
+          "flipper_length_mm": 222,
+          "body_mass_g": 5250,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 42.8,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 209,
+          "body_mass_g": 4700,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.1,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 207,
+          "body_mass_g": 5050,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 59.6,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 230,
+          "body_mass_g": 6050,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.1,
+          "bill_depth_mm": 14.8,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5150,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.4,
+          "bill_depth_mm": 16.3,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5400,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 42.6,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 213,
+          "body_mass_g": 4950,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.4,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 219,
+          "body_mass_g": 5250,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44,
+          "bill_depth_mm": 13.6,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4350,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.7,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 208,
+          "body_mass_g": 5350,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 42.7,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 208,
+          "body_mass_g": 3950,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.6,
+          "bill_depth_mm": 16,
+          "flipper_length_mm": 225,
+          "body_mass_g": 5700,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.3,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4300,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.6,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4750,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.5,
+          "bill_depth_mm": 15.9,
+          "flipper_length_mm": 222,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.6,
+          "bill_depth_mm": 13.9,
+          "flipper_length_mm": 217,
+          "body_mass_g": 4900,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.5,
+          "bill_depth_mm": 13.9,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4200,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.5,
+          "bill_depth_mm": 15.9,
+          "flipper_length_mm": 225,
+          "body_mass_g": 5400,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.9,
+          "bill_depth_mm": 13.3,
+          "flipper_length_mm": 213,
+          "body_mass_g": 5100,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 15.8,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.6,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4850,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.5,
+          "bill_depth_mm": 14.1,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.1,
+          "bill_depth_mm": 14.4,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4400,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.1,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 225,
+          "body_mass_g": 5000,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.5,
+          "bill_depth_mm": 14.4,
+          "flipper_length_mm": 217,
+          "body_mass_g": 4900,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45,
+          "bill_depth_mm": 15.4,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5050,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.8,
+          "bill_depth_mm": 13.9,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4300,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.5,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 220,
+          "body_mass_g": 5000,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.2,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4450,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.4,
+          "bill_depth_mm": 15.3,
+          "flipper_length_mm": 224,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.3,
+          "bill_depth_mm": 13.8,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4200,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.2,
+          "bill_depth_mm": 14.9,
+          "flipper_length_mm": 221,
+          "body_mass_g": 5300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.7,
+          "bill_depth_mm": 13.9,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4400,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 54.3,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 231,
+          "body_mass_g": 5650,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.8,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 219,
+          "body_mass_g": 4700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.8,
+          "bill_depth_mm": 16.8,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5700,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.2,
+          "bill_depth_mm": 14.4,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4650,
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.5,
+          "bill_depth_mm": 16.2,
+          "flipper_length_mm": 229,
+          "body_mass_g": 5800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.5,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 220,
+          "body_mass_g": 4700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.7,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 223,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.7,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4750,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.4,
+          "bill_depth_mm": 15.6,
+          "flipper_length_mm": 221,
+          "body_mass_g": 5000,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.2,
+          "bill_depth_mm": 15.6,
+          "flipper_length_mm": 221,
+          "body_mass_g": 5100,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.5,
+          "bill_depth_mm": 14.8,
+          "flipper_length_mm": 217,
+          "body_mass_g": 5200,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.4,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.6,
+          "bill_depth_mm": 16,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.5,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 209,
+          "body_mass_g": 4600,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 51.1,
+          "bill_depth_mm": 16.3,
+          "flipper_length_mm": 220,
+          "body_mass_g": 6000,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 13.8,
+          "flipper_length_mm": 215,
+          "body_mass_g": 4750,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 16.4,
+          "flipper_length_mm": 223,
+          "body_mass_g": 5950,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.1,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4625,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 52.5,
+          "bill_depth_mm": 15.6,
+          "flipper_length_mm": 221,
+          "body_mass_g": 5450,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.4,
+          "bill_depth_mm": 14.6,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4725,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50,
+          "bill_depth_mm": 15.9,
+          "flipper_length_mm": 224,
+          "body_mass_g": 5350,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.9,
+          "bill_depth_mm": 13.8,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4750,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.8,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 228,
+          "body_mass_g": 5600,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.4,
+          "bill_depth_mm": 14.4,
+          "flipper_length_mm": 218,
+          "body_mass_g": 4600,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 51.3,
+          "bill_depth_mm": 14.2,
+          "flipper_length_mm": 218,
+          "body_mass_g": 5300,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.5,
+          "bill_depth_mm": 14,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4875,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 52.1,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5550,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.5,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 218,
+          "body_mass_g": 4950,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 52.2,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 228,
+          "body_mass_g": 5400,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.5,
+          "bill_depth_mm": 14.5,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4750,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.5,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 224,
+          "body_mass_g": 5650,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.5,
+          "bill_depth_mm": 14.7,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4850,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.8,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 226,
+          "body_mass_g": 5200,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.4,
+          "bill_depth_mm": 15.8,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4925,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.9,
+          "bill_depth_mm": 14.6,
+          "flipper_length_mm": 222,
+          "body_mass_g": 4875,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.4,
+          "bill_depth_mm": 14.4,
+          "flipper_length_mm": 203,
+          "body_mass_g": 4625,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 51.1,
+          "bill_depth_mm": 16.5,
+          "flipper_length_mm": 225,
+          "body_mass_g": 5250,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.5,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 219,
+          "body_mass_g": 4850,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 55.9,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 228,
+          "body_mass_g": 5600,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.2,
+          "bill_depth_mm": 15.5,
+          "flipper_length_mm": 215,
+          "body_mass_g": 4975,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.1,
+          "bill_depth_mm": 15,
+          "flipper_length_mm": 228,
+          "body_mass_g": 5500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.3,
+          "bill_depth_mm": 13.8,
+          "flipper_length_mm": 216,
+          "body_mass_g": 4725,
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.8,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 215,
+          "body_mass_g": 5500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 41.7,
+          "bill_depth_mm": 14.7,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4700,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 53.4,
+          "bill_depth_mm": 15.8,
+          "flipper_length_mm": 219,
+          "body_mass_g": 5500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.3,
+          "bill_depth_mm": 14,
+          "flipper_length_mm": 208,
+          "body_mass_g": 4575,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.1,
+          "bill_depth_mm": 15.1,
+          "flipper_length_mm": 209,
+          "body_mass_g": 5500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.5,
+          "bill_depth_mm": 15.2,
+          "flipper_length_mm": 216,
+          "body_mass_g": 5000,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.8,
+          "bill_depth_mm": 15.9,
+          "flipper_length_mm": 229,
+          "body_mass_g": 5950,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 43.5,
+          "bill_depth_mm": 15.2,
+          "flipper_length_mm": 213,
+          "body_mass_g": 4650,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 51.5,
+          "bill_depth_mm": 16.3,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5500,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.2,
+          "bill_depth_mm": 14.1,
+          "flipper_length_mm": 217,
+          "body_mass_g": 4375,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 55.1,
+          "bill_depth_mm": 16,
+          "flipper_length_mm": 230,
+          "body_mass_g": 5850,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 44.5,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 217,
+          "body_mass_g": 4875,
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 48.8,
+          "bill_depth_mm": 16.2,
+          "flipper_length_mm": 222,
+          "body_mass_g": 6000,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 47.2,
+          "bill_depth_mm": 13.7,
+          "flipper_length_mm": 214,
+          "body_mass_g": 4925,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 46.8,
+          "bill_depth_mm": 14.3,
+          "flipper_length_mm": 215,
+          "body_mass_g": 4850,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 50.4,
+          "bill_depth_mm": 15.7,
+          "flipper_length_mm": 222,
+          "body_mass_g": 5750,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 14.8,
+          "flipper_length_mm": 212,
+          "body_mass_g": 5200,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Gentoo",
+          "island": "Biscoe",
+          "bill_length_mm": 49.9,
+          "bill_depth_mm": 16.1,
+          "flipper_length_mm": 213,
+          "body_mass_g": 5400,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.5,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 192,
+          "body_mass_g": 3500,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 196,
+          "body_mass_g": 3900,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.3,
+          "bill_depth_mm": 19.2,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3650,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.4,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 188,
+          "body_mass_g": 3525,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52.7,
+          "bill_depth_mm": 19.8,
+          "flipper_length_mm": 197,
+          "body_mass_g": 3725,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3950,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.1,
+          "bill_depth_mm": 18.2,
+          "flipper_length_mm": 178,
+          "body_mass_g": 3250,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.3,
+          "bill_depth_mm": 18.2,
+          "flipper_length_mm": 197,
+          "body_mass_g": 3750,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46,
+          "bill_depth_mm": 18.9,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4150,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.3,
+          "bill_depth_mm": 19.9,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3700,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.6,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3800,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.7,
+          "bill_depth_mm": 20.3,
+          "flipper_length_mm": 194,
+          "body_mass_g": 3775,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 47,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 185,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 201,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.9,
+          "bill_depth_mm": 17.1,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3575,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.5,
+          "bill_depth_mm": 19.6,
+          "flipper_length_mm": 201,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.3,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 197,
+          "body_mass_g": 3300,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 58,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.4,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3450,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.2,
+          "bill_depth_mm": 18.2,
+          "flipper_length_mm": 195,
+          "body_mass_g": 4400,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 42.4,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 181,
+          "body_mass_g": 3600,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 48.5,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3400,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 43.2,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 187,
+          "body_mass_g": 2900,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.6,
+          "bill_depth_mm": 19.4,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.7,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3300,
+          "sex": "female",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 197,
+          "body_mass_g": 4150,
+          "sex": "male",
+          "year": 2007
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.5,
+          "bill_depth_mm": 18.4,
+          "flipper_length_mm": 200,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.5,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 200,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.4,
+          "bill_depth_mm": 17.8,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52.8,
+          "bill_depth_mm": 20,
+          "flipper_length_mm": 205,
+          "body_mass_g": 4550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 40.9,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3200,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 54.2,
+          "bill_depth_mm": 20.8,
+          "flipper_length_mm": 201,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 42.5,
+          "bill_depth_mm": 16.7,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3350,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 203,
+          "body_mass_g": 4100,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.7,
+          "bill_depth_mm": 18.6,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3600,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 47.5,
+          "bill_depth_mm": 16.8,
+          "flipper_length_mm": 199,
+          "body_mass_g": 3900,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 47.6,
+          "bill_depth_mm": 18.3,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3850,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52,
+          "bill_depth_mm": 20.7,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4800,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.9,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 192,
+          "body_mass_g": 2700,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 53.5,
+          "bill_depth_mm": 19.9,
+          "flipper_length_mm": 205,
+          "body_mass_g": 4500,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 210,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.2,
+          "bill_depth_mm": 17.5,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3650,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.9,
+          "bill_depth_mm": 19.1,
+          "flipper_length_mm": 196,
+          "body_mass_g": 3550,
+          "sex": "male",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.5,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 196,
+          "body_mass_g": 3500,
+          "sex": "female",
+          "year": 2008
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.9,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 196,
+          "body_mass_g": 3675,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.8,
+          "bill_depth_mm": 18.5,
+          "flipper_length_mm": 201,
+          "body_mass_g": 4450,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.1,
+          "bill_depth_mm": 17.9,
+          "flipper_length_mm": 190,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49,
+          "bill_depth_mm": 19.6,
+          "flipper_length_mm": 212,
+          "body_mass_g": 4300,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.5,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3250,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.8,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3675,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 48.1,
+          "bill_depth_mm": 16.4,
+          "flipper_length_mm": 199,
+          "body_mass_g": 3325,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.4,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 201,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.7,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3600,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.7,
+          "bill_depth_mm": 19.7,
+          "flipper_length_mm": 203,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 42.5,
+          "bill_depth_mm": 17.3,
+          "flipper_length_mm": 187,
+          "body_mass_g": 3350,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 52.2,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 197,
+          "body_mass_g": 3450,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.2,
+          "bill_depth_mm": 16.6,
+          "flipper_length_mm": 191,
+          "body_mass_g": 3250,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.3,
+          "bill_depth_mm": 19.9,
+          "flipper_length_mm": 203,
+          "body_mass_g": 4050,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.2,
+          "bill_depth_mm": 18.8,
+          "flipper_length_mm": 202,
+          "body_mass_g": 3800,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.6,
+          "bill_depth_mm": 19.4,
+          "flipper_length_mm": 194,
+          "body_mass_g": 3525,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 51.9,
+          "bill_depth_mm": 19.5,
+          "flipper_length_mm": 206,
+          "body_mass_g": 3950,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 46.8,
+          "bill_depth_mm": 16.5,
+          "flipper_length_mm": 189,
+          "body_mass_g": 3650,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 45.7,
+          "bill_depth_mm": 17,
+          "flipper_length_mm": 195,
+          "body_mass_g": 3650,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 55.8,
+          "bill_depth_mm": 19.8,
+          "flipper_length_mm": 207,
+          "body_mass_g": 4000,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 43.5,
+          "bill_depth_mm": 18.1,
+          "flipper_length_mm": 202,
+          "body_mass_g": 3400,
+          "sex": "female",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 49.6,
+          "bill_depth_mm": 18.2,
+          "flipper_length_mm": 193,
+          "body_mass_g": 3775,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.8,
+          "bill_depth_mm": 19,
+          "flipper_length_mm": 210,
+          "body_mass_g": 4100,
+          "sex": "male",
+          "year": 2009
+        },
+        {
+          "species": "Chinstrap",
+          "island": "Dream",
+          "bill_length_mm": 50.2,
+          "bill_depth_mm": 18.7,
+          "flipper_length_mm": 198,
+          "body_mass_g": 3775,
+          "sex": "female",
+          "year": 2009
+        }
+      ]
+    },
+    "title": "Such amazing penguins!",
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "bill_length_mm",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      },
+      "y": {
+        "field": "bill_depth_mm",
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        }
+      },
+      "color": {
+        "field": "species",
+        "type": "nominal"
+      }
+    }
+  },
+  "embed_options": {
+    "loader": {
+      "baseURL": "https://cdn.jsdelivr.net/npm/vega-datasets@2"
+    }
+  }
+},"evals":[],"jsHooks":[]}</script><p>For YAML, these delimiters work either quoted or unquoted.</p>
+<p>There are two interpolation contexts:</p>
+<ul>
+<li>
+<strong>substitution</strong>, e.g. <code>"${vega_schema()}"</code>, <code>"${penguins}"</code>: if the entire string is interpolated, it substitutes the object itself; the object is not coerced to a string. This lets us interpolate data frames into a spec.</li>
+<li>
+<strong>inline</strong>, e.g. <code>"Such ${adjective} penguins!"</code>: this is traditional string-interpolation; the interpolated object is coerced to a string.</li>
+</ul>
+<p>The structure of the spec shows the interpolation:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/vegadown.html">vegadown</a></span><span class="op">(</span><span class="st">"interp"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; List of 5</span>
+<span class="co">#&gt;  $ $schema : chr "https://vega.github.io/schema/vega-lite/v4.json"</span>
+<span class="co">#&gt;  $ data    :List of 1</span>
+<span class="co">#&gt;   ..$ values: tibble [344 × 8] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;   .. ..$ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   .. ..$ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...</span>
+<span class="co">#&gt;   .. ..$ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...</span>
+<span class="co">#&gt;   .. ..$ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...</span>
+<span class="co">#&gt;   .. ..$ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...</span>
+<span class="co">#&gt;   .. ..$ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...</span>
+<span class="co">#&gt;   .. ..$ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...</span>
+<span class="co">#&gt;   .. ..$ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</span>
+<span class="co">#&gt;  $ title   : chr "Such amazing penguins!"</span>
+<span class="co">#&gt;  $ mark    : chr "point"</span>
+<span class="co">#&gt;  $ encoding:List of 3</span>
+<span class="co">#&gt;   ..$ x    :List of 3</span>
+<span class="co">#&gt;   .. ..$ field: chr "bill_length_mm"</span>
+<span class="co">#&gt;   .. ..$ type : chr "quantitative"</span>
+<span class="co">#&gt;   .. ..$ scale:List of 1</span>
+<span class="co">#&gt;   .. .. ..$ zero: logi FALSE</span>
+<span class="co">#&gt;   ..$ y    :List of 3</span>
+<span class="co">#&gt;   .. ..$ field: chr "bill_depth_mm"</span>
+<span class="co">#&gt;   .. ..$ type : chr "quantitative"</span>
+<span class="co">#&gt;   .. ..$ scale:List of 1</span>
+<span class="co">#&gt;   .. .. ..$ zero: logi FALSE</span>
+<span class="co">#&gt;   ..$ color:List of 2</span>
+<span class="co">#&gt;   .. ..$ field: chr "species"</span>
+<span class="co">#&gt;   .. ..$ type : chr "nominal"</span>
+<span class="co">#&gt;  - attr(*, "class")= chr [1:4] "vegaspec_unit" "vegaspec_vega_lite" "vegaspec" "list"</span></code></pre></div>
 </div>
 <div id="behind-the-scenes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#behind-the-scenes" class="anchor"></a>Behind the scenes</h2>
+<p>There’s not a lot to this package; it offers:</p>
+<ul>
+<li>re-exported <a href="https://vegawidget.github.io/vegawidget/">vegawidget</a> functions to handle the rendering.</li>
+<li>functions to access the parsed specs: <code><a href="../reference/vegadown.html">vegadown()</a></code>, <code><a href="../reference/vegadown.html">vegadown_labels()</a></code>.</li>
+<li>some internal functions to handle interpolation from the R environment.</li>
+<li>
+<a href="https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html">custom-language knitr engines</a> for <code>vegajson</code> and <code>vegayaml</code> (<code>vegayml</code>).</li>
+</ul>
+<p>Putting this together, I learned a lot by studying the <a href="https://github.com/rstudio/r2d3/blob/master/R/knit.R">knitr-engine code for r2d3</a>. As well, this <a href="https://trestletech.com/2013/04/package-wide-variablescache-in-r-package/">blog post</a> by Jeff Allen had exactly what I needed to learn to get the <code><a href="../reference/vegadown.html">vegadown()</a></code> function to work.</p>
 </div>
   </div>
 
