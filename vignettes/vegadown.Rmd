@@ -26,8 +26,7 @@ Using only [vegawidget](https://vegawidget.github.io/vegawidget), you have to co
 ```{r vwcars}
 as_vegaspec(
   list(
-    `$schema` = "https://vega.github.io/schema/vega-lite/v4.json",
-    description = "A scatterplot showing horsepower and miles per gallons for various cars.",
+    `$schema` = vega_schema(),
     data = list("url" = "data/cars.json"),
     mark = "point",
     encoding = list(
@@ -38,16 +37,14 @@ as_vegaspec(
 )
 ```
 
-When coding, it can be a bit awkward to compose vegaspecs using lists. 
-Using this packaage, you can compose using JSON or YAML in RMarkdown by specifying a chunk's language as `vegajson`, `vegayaml` or `vegayml`.
+It can feel a bit awkward to code using so many lists. 
 
 ## First steps
 
-Using vegadown, you can compose vegaspecs using JSON or YAML code chunks in RMarkdown. 
-There are two things keep in mind, initially:
+Using vegadown, you can compose specs using JSON or YAML code chunks in RMarkdown:
 
-- use `vegajson` or `vegayaml` (or `vegayml`) as the language of your code chunk.
-- afterwards, you can access a given vegaspec using `vegadown()`.
+- use `vegajson` or `vegayaml` (`vegayml`) as the language of your code chunk.
+- afterwards, you can access the vegaspec of a given chunk using `vegadown()`.
 
 If you label a code chunk as `json-cars`, the vegaspec will be available using `vegadown("json-cars")`.
 You can get the names of available specs using `vegadown_names()`.
@@ -60,7 +57,6 @@ Here's what your code chunk would look like:
 ```{vegajson json-cars}`r ''`
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
   "data": {"url": "data/cars.json"},
   "mark": "point",
   "encoding": {
@@ -73,10 +69,9 @@ Here's what your code chunk would look like:
 
 Here's how it would appear:
 
-```{vegajson json-cars}
+```{vegajson json-cars, echo=FALSE}
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
   "data": {"url": "data/cars.json"},
   "mark": "point",
   "encoding": {
@@ -86,16 +81,17 @@ Here's how it would appear:
 }
 ```
 
-As noted above, you can also use YAML (`vegayaml` or `vegayml`); we can also specify sizing options, just as with vegawidget.
+As noted above, you can also use YAML (`vegayaml` or `vegayml`); we can also specify sizing options, just as with vegawidget. Here's what the code-chunk front matter would look like:
 
 ````
 ```{vegayaml yaml-cars, vega.height=300, vega.width=300}`r ''`
 ```
 ````
 
+Here's how it would look in your rendered document:
+
 ```{vegayaml yaml-cars, vega.height=300, vega.width=300}
 $schema: "https://vega.github.io/schema/vega-lite/v4.json"
-description: "A scatterplot showing weight and miles per gallons for various cars."
 data: 
   url: "data/cars.json"
 mark: point
@@ -108,20 +104,91 @@ encoding:
     type: quantitative
 ```
 
-Note that we quoted the `"y"` for the y-encoding; this is because of the [(many) reserved Boolean keywords](https://yaml.org/type/bool.html) in YAML.
+Note that we quoted the `"y"` for the y-encoding; this is because of the (many) [reserved Boolean keywords](https://yaml.org/type/bool.html) in YAML.
 
-To get the available labels:
+You can access a particular spec using `vegadown()`:
+
+```{r}
+vegadown("json-cars")
+```
+
+To get the labels of chunks that use vegadown (thus far in the RMarkdown document):
 
 ```{r}
 vegadown_labels()
 ```
 
-You can access a particular spec using `vegadown()`:
-
-```{r}
-str(vegadown("json-cars"))
-```
-
 ## Interpolation from R
 
+Writing a spec by hand is feasible if your data is available through a URL.
+However, it would be tedious to specify the data values manually.
+This is where interpolation is useful.
+
+Let's introduce this topic using [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/index.html), by Allison Horst, Alison Hill, and Kristen Gorman:
+
+```{r}
+library("palmerpenguins")
+
+penguins
+```
+
+Let's also choose an adjective for the title of our chart:
+
+```{r}
+adjective <- sample(
+  c("wonderful", "amazing", "interesting", "penguiny"),
+  size = 1
+)
+```
+
+We use [glue](https://glue.tidyverse.org/)-like notation to interpolate objects from the R environment into the spec; in fact, behind the scenes, we use `glue::glue()`.
+Instead of using `{}` as interpolation delimiters, we use the JavaScript interpolation delimiters, `${}`:
+
+```{vegayaml interp}
+$schema: "${vega_schema()}"
+data: 
+  values: ${penguins}
+title: "Such ${adjective} penguins!"
+mark: point
+encoding: 
+  x: 
+    field: bill_length_mm
+    type: quantitative
+    scale:
+      zero: false
+  "y": 
+    field: bill_depth_mm
+    type: quantitative
+    scale:
+      zero: false
+  color:
+    field: species
+    type: nominal
+```
+
+For YAML, these delimiters work either quoted or unquoted. 
+
+There are two interpolation contexts: 
+
+- **substitution**, e.g. `"${vega_schema()}"`, `"${penguins}"`: if the entire string is interpolated, it substitutes the object itself; the object is not coerced to a string.
+  This lets us interpolate data frames into a spec.
+- **inline**, e.g. `"Such ${adjective} penguins!"`: this is traditional string-interpolation; the interpolated object is coerced to a string. 
+
+The structure of the spec shows the interpolation:
+
+```{r}
+str(vegadown("interp"))
+```
+
 ## Behind the scenes
+
+There's not a lot to this package; it offers:
+
+- re-exported [vegawidget](https://vegawidget.github.io/vegawidget/) functions to handle the rendering.
+- functions to access the parsed specs: `vegadown()`, `vegadown_labels()`.
+- some internal functions to handle interpolation from the R environment.
+- [custom-language knitr engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html) for `vegajson` and `vegayaml` (`vegayml`).
+
+Putting this together, I learned a lot by studying the [knitr-engine code for r2d3](https://github.com/rstudio/r2d3/blob/master/R/knit.R). 
+As well, this [blog post](https://trestletech.com/2013/04/package-wide-variablescache-in-r-package/) by Jeff Allen had exactly what I needed to learn to get the `vegadown()` function to work.
+

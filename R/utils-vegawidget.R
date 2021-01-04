@@ -1,5 +1,16 @@
 #### vegaspec functions ####
 
+#' Create string for schema-URL
+#'
+#' See \code{vegawidget::\link[vegawidget]{vega_schema}} for details.
+#'
+#' @name vega_schema
+#' @rdname vega_schema
+#' @importFrom vegawidget vega_schema
+#' @export
+#'
+NULL
+
 #' Coerce to vegaspec
 #'
 #' See \code{vegawidget::\link[vegawidget]{as_vegaspec}} for details.

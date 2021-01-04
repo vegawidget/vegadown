@@ -19,8 +19,8 @@ vegadown_labels()
 }
 }
 \description{
-Any vegaspecs rendered in knitr chunks using \code{vegajson}, \code{vegayaml},
-or \code{vegayml} will be stored to a package environment, where they can
+Any vegaspecs rendered in knitr chunks using \code{vegajson} or \code{vegayaml}
+(\code{vegayml}) will be stored to a package environment, where they can
 be accessed using the \code{vegadown()} function, using the label of a
 code chunk.
 

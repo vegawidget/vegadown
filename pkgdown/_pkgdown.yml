@@ -9,7 +9,7 @@ reference:
   - title: "Code chunks"
     desc: >
       Use these functions to access vegaspecs you create in RMarkdown using the
-      languages `vegajson`, `vegayaml`, or `vegayml`.
+      languages `vegajson` and `vegayaml` (`vegayml`).
     contents:
       - vegadown
 
@@ -19,6 +19,7 @@ reference:
       [vegawidget](https://vegawidget.github.io/).
     contents:
       - as_vegaspec
+      - vega_schema
       - vegawidget
       - vega_embed
       - vw_set_base_url

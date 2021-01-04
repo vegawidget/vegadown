@@ -5,8 +5,8 @@ vegadown_env <- new.env()
 #' Access vegaspecs
 #'
 #' @description
-#' Any vegaspecs rendered in knitr chunks using `vegajson`, `vegayaml`,
-#' or `vegayml` will be stored to a package environment, where they can
+#' Any vegaspecs rendered in knitr chunks using `vegajson` or `vegayaml`
+#' (`vegayml`) will be stored to a package environment, where they can
 #' be accessed using the `vegadown()` function, using the label of a
 #' code chunk.
 #'

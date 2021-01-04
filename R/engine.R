@@ -8,8 +8,9 @@ engine <- function(language) {
   #  - use a closure to adapt the function to the language
 
   parser_key <- list(
-    json = identity,
-    yaml = yaml::yaml.load
+    json = as_vegaspec,
+    yaml = yaml::yaml.load,
+    yml = yaml::yaml.load
   )
 
   parser <- parser_key[[language]]
@@ -21,10 +22,14 @@ engine <- function(language) {
     # get code together
     code <- paste(options$code, collapse = '\n')
 
-    # make vegaspec
-    spec <- as_vegaspec(parser(code))
+    # parse
+    spec <- parser(code)
 
     # interpolate from R
+    spec <- interp_transverse(spec)
+
+    # coerce to vegaspec
+    spec <- as_vegaspec(spec)
 
     # add to vegadown
     assign(options$label, spec, envir = vegadown_env)
@@ -57,5 +62,4 @@ engine <- function(language) {
 
 }
 
-# from knitr
 
